@@ -4,4 +4,4 @@ def move_blob(sourceLocation, destination):
     os.system('gsutil mv gs://' + sourceLocation + ' gs://' + destination + '')
 
 
-move_blob('dod-mwja-project1/Failed/*', 'dod-mwja-project1/Source/')
+move_blob(config.BUCKET_NAME+'/Failed/*', config.BUCKET_NAME+'/Source/')
