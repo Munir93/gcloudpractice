@@ -50,3 +50,5 @@ TWITTER_SECRET = 'Zsw17mh9OiXDfaf993njgHhGZHxYTHrrD9Ae8fgqEc1mq'
 time = strftime("%Y_%m_%d_%H_%M_%S", gmtime())
 
 CSV_NAME = 'Tweets'+time+'.csv'
+
+TABLE_NAME = 'Brexit' 
