@@ -1,3 +1,4 @@
+import config
 def move_blob(sourceLocation, destination):
     import os
 
