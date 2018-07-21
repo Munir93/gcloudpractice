@@ -23,7 +23,7 @@ for i in range(len(tweet)):
     line = [names, tweet_text.encode('utf-8'), time, followers, city, source]
     print(line)
     with open(config.TOPIC+'.csv', 'a') as f:
-        line_writer = csv.writer(f, dialect='unix')
+        line_writer = csv.writer(f)
         line_writer.writerow(line)
 
 
