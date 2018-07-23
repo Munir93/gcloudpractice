@@ -18,14 +18,12 @@ Next download the .json key and store this in the config.py folder'''
 #gcloud iam service-accounts keys create [FILE_NAME].json --iam-account [NAME]@[PROJECT_ID].iam.gserviceaccount.com
 
 '''Setting up Big Query Client'''
-client = bigquery.Client()
-#.from_service_account_json(json_credentials_path=config.KEY_PATH,project=config.PROJECT_ID)
+client = bigquery.Client.from_service_account_json(json_credentials_path=config.KEY_PATH,project=config.PROJECT_ID)
 dataset_id = config.DATASET
 dataset_ref = client.dataset(dataset_id, project=config.PROJECT_ID)
 
 '''Setting up GCS Client'''
-storage_client = storage.Client()
-#.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
+storage_client = storage.Client.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
 bucket = storage_client.get_bucket(config.BUCKET_NAME)
 
 logging.basicConfig(filename=config.LOGGING_FILENAME, format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
