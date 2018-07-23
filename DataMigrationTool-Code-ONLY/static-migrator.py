@@ -2,12 +2,12 @@ from google.cloud import bigquery, storage
 import config as config
 
 '''Setting up Big Query Client'''
-client = bigquery.Client.from_service_account_json(json_credentials_path=config.KEY_PATH,project=config.PROJECT_ID)
+client = bigquery.Client()
 dataset_id = config.DATASET
 dataset_ref = client.dataset(dataset_id, project=config.PROJECT_ID)
 
 '''Setting up GCS Client'''
-storage_client = storage.Client.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
+storage_client = storage.Client()
 bucket = storage_client.get_bucket(config.BUCKET_NAME)
 
 def load_csv(table_name, uri):
