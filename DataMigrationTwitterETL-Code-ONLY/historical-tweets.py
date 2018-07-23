@@ -7,7 +7,14 @@ from faker import Faker as gen
 import config
 import csv
 from pandas import  read_csv
-tweetCriteria = got.manager.TweetCriteria().setQuerySearch(config.TRACK_TERMS).setSince("2018-05-01").setUntil("2018-05-30")
+
+with open(config.TOPIC+'.csv', 'a') as f:
+    line_writer = csv.DictWriter(f, fieldnames=['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'],lineterminator='\n')
+    line_writer.writeheader()
+
+
+
+tweetCriteria = got.manager.TweetCriteria().setQuerySearch(config.TRACK_TERMS).setSince("2018-06-01").setUntil("2018-06-02").setMaxTweets(1000)
 tweet = got.manager.TweetManager.getTweets(tweetCriteria)
 for i in range(len(tweet)):
 
@@ -23,10 +30,10 @@ for i in range(len(tweet)):
     line = [names, tweet_text.encode('utf-8'), time, followers, city, source]
     print(line)
     with open(config.TOPIC+'.csv', 'a') as f:
-        line_writer = csv.writer(f)
+        line_writer = csv.writer(f, dialect='unix')
         line_writer.writerow(line)
 
 
-df = read_csv(config.TOPIC+'.csv')
-df.columns = config.COLUMN_NAMES
-df.to_csv(config.TOPIC+'.csv',index=False)
+    #df = read_csv(config.TOPIC+'.csv')
+    #df.columns = config.COLUMN_NAMES
+    #df.to_csv(config.TOPIC+'.csv',index=False)

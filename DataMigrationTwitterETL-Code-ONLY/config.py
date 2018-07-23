@@ -5,15 +5,14 @@ from time import gmtime, strftime
 #for the purpose of migration user needs to be granted the following access levels
 # bigquery.admin and storage.objectViewer
 
-#ACCOUNT_NAME = 'munirs_account'
-
+'''gs-bg-migration i.e dynamic load'''
 PROJECT_ID ='warm-airline-207713'
 
 KEY_PATH = 'authkey1.json'
 
 #creating dataset
 
-DATASET = 'test_dataset'
+DATASET = 'Tweets_raw'
 
 #google cloud storage info
 
@@ -33,12 +32,14 @@ STORAGE_KEY_PATH = 'storage_key.json'
 
 LOGGING_FILENAME = 'DoD-Project1-logs1.log'
 
+'''static-migrator  i.e batch load'''
+
+MASTER_TABLE = 'Tweets_raw_dt'
 
 
+'''Twitter ETL start STREAM '''
 
-'''Twitter ETL start'''
-
-TRACK_TERMS = ["brexit"]
+TRACK_TERMS = "Donald_Trump"
 
 TWITTER_APP_KEY = 'KPVEb25geZ1WUxMrJz3flS6je'
 TWITTER_APP_SECRET = 'BcjmYWEJmDuU81gwW3Hs64mnzH4I67EzgS0H5FfuIs7VFjkXtH'
@@ -46,9 +47,15 @@ TWITTER_KEY = '1014592058215059456-Z1pGlZHdMvx8vsszkDWpsEdTCjfz4o'
 TWITTER_SECRET = 'Zsw17mh9OiXDfaf993njgHhGZHxYTHrrD9Ae8fgqEc1mq'
 
 
-
 time = strftime("%Y_%m_%d_%H_%M_%S", gmtime())
 
 CSV_NAME = 'Tweets'+time+'.csv'
+COLUMN_NAMES = ['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source']
 
-TABLE_NAME = 'Brexit' 
+
+
+'''Twitter ETL start historical-tweets'''
+
+TOPIC = 'Donald_Trump_tweets'
+TRACK_TERMS = 'Donald_Trump'
+COLUMN_NAMES = ['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source']
