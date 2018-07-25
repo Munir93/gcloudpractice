@@ -1,3 +1,4 @@
+
 import tweepy
 # for connection to google biqQ later pip install --upgrade google-cloud-bigquery
 # https://cloud.google.com/bigquery/docs/reference/libraries#client-libraries-install-python
@@ -15,7 +16,8 @@ from google.cloud import bigquery, storage
 from faker import Faker as fk
 '''Creating the client to use with GCS - json key required if running from external application'''
 
-storage_client = storage.Client.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
+storage_client = storage.Client()
+#.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
 bucket = storage_client.get_bucket(config.BUCKET_NAME)
 import config
 from google.cloud import pubsub
@@ -56,9 +58,9 @@ class StreamListener(tweepy.StreamListener):
         publisher.publish(topic_path, publish_line)
 
 
-        with open(config.CSV_NAME, 'a') as f:
-            line_writer = csv.writer(f)
-            line_writer.writerow(line)
+   #     with open(config.CSV_NAME, 'a') as f:
+    #        line_writer = csv.writer(f)
+     #       line_writer.writerow(line)
         # returning false if the time limit runs out thus stopping the stream safely
         if (time.time() - self.start_time) < self.limit:
             return True
@@ -78,8 +80,8 @@ def send_to_GCS(csv):
 print('File {} uploaded to {}.'.format(csv,config.BUCKET_NAME))
 
 if __name__ == '__main__':
-    os.environ[
-        "GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
+ #   os.environ[
+  #      "GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
 
     '''Create publisher client'''
     publisher = pubsub.PublisherClient()
