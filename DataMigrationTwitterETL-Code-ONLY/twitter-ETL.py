@@ -17,16 +17,17 @@ from faker import Faker as fk
 
 storage_client = storage.Client.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
 bucket = storage_client.get_bucket(config.BUCKET_NAME)
+import config
+from google.cloud import pubsub
+import os
 
-autogen = fk('en_GB')
-#autogen.address()
+
 '''Steam Listener sublcassed from the tweepy module class Stream Listener'''
 class StreamListener(tweepy.StreamListener):
     def __init__(self, time_limit=60):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
-    '''Created some class variables to use for the timer'''
 
     '''Overiding the on_status method see tweepy documentation '''
     def on_status(self, status):
@@ -48,7 +49,12 @@ class StreamListener(tweepy.StreamListener):
         source = ct.r_source()
         #print(type(created), created)
         # here we need to ocnstruct the final line of data and send each line to a csv that will remain in the folder
-        line = [name, text.encode('utf-8'), created, followers, location, source]
+        line = [name.encode('utf-8'), text.encode('utf-8'), created, followers, location.encode('utf-8'), source.encode('utf-8')]
+        '''Publiah message to topic'''
+        publine = ','.join(map(str, line))
+        publish_line = publine.encode('utf-8')
+        publisher.publish(topic_path, publish_line)
+
 
         with open(config.CSV_NAME, 'a') as f:
             line_writer = csv.writer(f)
@@ -72,6 +78,17 @@ def send_to_GCS(csv):
 print('File {} uploaded to {}.'.format(csv,config.BUCKET_NAME))
 
 if __name__ == '__main__':
+    os.environ[
+        "GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
+
+    '''Create publisher client'''
+    publisher = pubsub.PublisherClient()
+
+    '''Set topic path with topic name and Project id'''
+    topic_path = publisher.topic_path(config.PROJECT_ID, 'twitter-stream')
+
+    '''Create initial topic'''
+    #publisher.create_topic(topic_path)
 
 
     auth = tweepy.OAuthHandler(config.TWITTER_APP_KEY, config.TWITTER_APP_SECRET)
@@ -83,9 +100,9 @@ if __name__ == '__main__':
     stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
     stream.filter(track=config.TRACK_TERMS)
 
-    df = read_csv(config.CSV_NAME)
-    df.columns = config.COLUMN_NAMES
-    df.to_csv(config.CSV_NAME,index=False)
+    #df = read_csv(config.CSV_NAME)
+    #df.columns = config.COLUMN_NAMES
+    #df.to_csv(config.CSV_NAME,index=False)
     #send_to_GCS(config.CSV_NAME)
     #os.system('gsutil cp' +config.CSV_NAME+' gs://'+config.BUCKET_NAME+'/Source/')
 
