@@ -5,7 +5,8 @@ import time
 from google.cloud import bigquery
 import ast
 import datetime
-client =  bigquery.Client.from_service_account_json(json_credentials_path=config.KEY_PATH,project=config.PROJECT_ID)
+client =  bigquery.Client()
+#.from_service_account_json(json_credentials_path=config.KEY_PATH,project=config.PROJECT_ID)
 dataset_ref = client.dataset(dataset_id='test_dataset',project=config.PROJECT_ID)
 table_ref = dataset_ref.table('Donald_Trump_tweets')
 table = client.get_table(table_ref)
@@ -14,7 +15,7 @@ table = client.get_table(table_ref)
 #client.insert_rows(table,row)
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
 publisher = pubsub.PublisherClient()
 topic_path = publisher.topic_path(config.PROJECT_ID, 'twitter-stream')
 
