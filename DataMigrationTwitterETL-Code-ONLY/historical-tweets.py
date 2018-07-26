@@ -33,7 +33,7 @@ for i in range(len(tweet)):
         line_writer = csv.writer(f, dialect='unix')
         line_writer.writerow(line)
 
-
+#add code to auto send file to bucket source folder
     #df = read_csv(config.TOPIC+'.csv')
     #df.columns = config.COLUMN_NAMES
     #df.to_csv(config.TOPIC+'.csv',index=False)
