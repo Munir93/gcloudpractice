@@ -12,7 +12,7 @@ KEY_PATH = 'authkey1.json'
 
 #creating dataset
 
-DATASET = 'test_dataset'
+DATASET = 'Tweets_raw'
 
 #google cloud storage info
 
@@ -34,6 +34,6 @@ LOGGING_FILENAME = 'DoD-Project1-logs1.log'
 
 '''static-migrator  i.e batch load'''
 
-MASTER_TABLE = 'Brexit_Tweets'
+MASTER_TABLE = 'Donalt_Trump_Tweets'
 
 
