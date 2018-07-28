@@ -34,6 +34,6 @@ LOGGING_FILENAME = 'DoD-Project1-logs1.log'
 
 '''static-migrator  i.e batch load'''
 
-MASTER_TABLE = 'Donalt_Trump_Tweets'
+MASTER_TABLE = 'Donald_Trump_Tweets'
 
 
