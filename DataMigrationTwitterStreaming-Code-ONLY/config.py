@@ -36,7 +36,7 @@ LOGGING_FILENAME = 'DoD-Project1-logs1.log'
 
 '''static-migrator  i.e batch load'''
 
-MASTER_TABLE = 'Tweets_raw_dt'
+MASTER_TABLE = 'Donald_Trump_Tweets'
 
 
 '''Twitter ETL start STREAM '''
