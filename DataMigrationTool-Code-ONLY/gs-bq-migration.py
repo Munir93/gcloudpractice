@@ -143,7 +143,7 @@ if __name__ == '__main__':
         #print(config.LIST_OF_FILES)
 
         '''Creating a list of tables currently inside the dataset in Big Query'''
-        tables = list(client.list_dataset_tables(dataset_ref))  # API request(s)
+        tables = list(client.list_tables(dataset_ref))  # API request(s)
         list_of_tables = []
         if tables:
             for table in tables:
