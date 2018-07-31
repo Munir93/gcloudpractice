@@ -8,7 +8,7 @@ import datetime
 client =  bigquery.Client()
 #.from_service_account_json(json_credentials_path=config.KEY_PATH,project=config.PROJECT_ID)
 dataset_ref = client.dataset(dataset_id=config.DATASET,project=config.PROJECT_ID)
-table_ref = dataset_ref.table('Donald_Trump_tweets')
+table_ref = dataset_ref.table(config.MASTER_TABLE)
 table = client.get_table(table_ref)
 
 #row = [('Munir', 'testweet', datetime.datetime.today(), 23, 'london', 'iphone')]
