@@ -38,6 +38,7 @@ LOGGING_FILENAME = 'DoD-Project1-logs1.log'
 
 MASTER_TABLE = 'Donald_Trump_Tweets'
 
+STREAM_TABLE = 'Donald_Trump_Tweets_DS'
 
 '''Twitter ETL start STREAM '''
 
