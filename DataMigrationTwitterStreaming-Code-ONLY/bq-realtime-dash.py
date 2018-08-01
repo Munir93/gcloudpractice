@@ -14,7 +14,7 @@ dataset_ref = client.dataset(dataset_id=config.DATASET,project=config.PROJECT_ID
 table_ref = dataset_ref.table(config.STREAM_TABLE)
 table = client.get_table(table_ref)
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
 publisher = pubsub.PublisherClient()
 topic_path = publisher.topic_path(config.PROJECT_ID, 'twitter-stream')
 
