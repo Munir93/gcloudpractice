@@ -41,6 +41,6 @@ for i in range(len(tweet)):
         line_writer = csv.writer(f, dialect='unix')
         line_writer.writerow(line)
         
-os.system('gsutil cp' +config.TOPIC+'.csv' gs://'+config.BUCKET_NAME+'/Source/')
+os.system('gsutil cp' +config.TOPIC+'.csv' 'gs://'+config.BUCKET_NAME+'/Source/')
 
 
