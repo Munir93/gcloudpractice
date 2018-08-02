@@ -7,6 +7,14 @@ from faker import Faker as gen
 import config
 import csv
 from pandas import  read_csv
+from google.cloud import bigquery, storage
+
+'''Creating the client to use with GCS - json key required if running from external application'''
+
+storage_client = storage.Client()
+#.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
+bucket = storage_client.get_bucket(config.BUCKET_NAME)
+
 
 with open(config.TOPIC+'.csv', 'a') as f:
     line_writer = csv.DictWriter(f, fieldnames=['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'],lineterminator='\n')
@@ -33,7 +41,4 @@ for i in range(len(tweet)):
         line_writer = csv.writer(f, dialect='unix')
         line_writer.writerow(line)
 
-#add code to auto send file to bucket source folder
-    #df = read_csv(config.TOPIC+'.csv')
-    #df.columns = config.COLUMN_NAMES
-    #df.to_csv(config.TOPIC+'.csv',index=False)
+
