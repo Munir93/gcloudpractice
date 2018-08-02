@@ -6,8 +6,6 @@ import csv
 import config
 import os
 import time
-import multiprocessing
-from pandas import read_csv
 import sys
 import listofcities as ct
 
