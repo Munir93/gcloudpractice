@@ -17,7 +17,7 @@ bucket = storage_client.get_bucket(config.BUCKET_NAME)
 
 
 with open(config.TOPIC+'.csv', 'a') as f:
-    line_writer = csv.DictWriter(f, fieldnames=['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'],lineterminator='\n')
+    line_writer = csv.DictWriter(f, fieldnames=config.COLUMN_NAMES,lineterminator='\n')
     line_writer.writeheader()
 
 
