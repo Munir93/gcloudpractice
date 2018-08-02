@@ -13,7 +13,8 @@ from google.cloud import bigquery, storage
 from faker import Faker as fk
 '''Creating the client to use with GCS - json key required if running from external application'''
 
-storage_client = storage.Client.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
+storage_client = storage.Client()
+#.from_service_account_json(json_credentials_path=config.STORAGE_KEY_PATH,project=config.PROJECT_ID)
 bucket = storage_client.get_bucket(config.BUCKET_NAME)
 import config
 from google.cloud import pubsub
@@ -88,8 +89,8 @@ def send_to_GCS(csv):
 print('File {} uploaded to {}.'.format(csv,config.BUCKET_NAME))
 
 if __name__ == '__main__':
-    os.environ[
-        "GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
+   # os.environ[
+        #"GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/709231/PycharmProjects/DataMigrationProjectGCP/pubsub-with-storage.json"
 
     '''Create publisher client'''
     publisher = pubsub.PublisherClient()
