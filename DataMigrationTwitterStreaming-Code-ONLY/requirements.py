@@ -7,5 +7,6 @@ os.system('sudo pip install --upgrade google-cloud-pubsub')
 os.system('sudo pip install --upgrade google-cloud-bigquery')
 os.system('sudo pip install logging')
 os.system('sudo pip install textblob')
+os.system('sudo pip install faker')
 #os.system('git clone https://github.com/Munir93/gcloudpractice')
 
