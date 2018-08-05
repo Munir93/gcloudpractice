@@ -8,6 +8,7 @@ from apache_beam.options.pipeline_options import GoogleCloudOptions
 from apache_beam.options.pipeline_options import StandardOptions
 from apache_beam.options.pipeline_options import SetupOptions
 from apache_beam.io.gcp.internal.clients import bigquery
+from textblob import TextBlob
 
 options = PipelineOptions()
 
@@ -20,20 +21,18 @@ options.view_as(StandardOptions).streaming = True
 
 
 
-def parse_pubsub(line):
-    import json
-    record = json.loads(line)
-    return (record['Name']), (record['Tweet']), (record['Time']), (record['Followers']), (record['Location']), (record['Device'])
 
-def handle_pubsub(line):
+def compute_sentiment(line):
     templist = line.split('-=-')
     for j, item in enumerate(templist):
         templist[j] = item.replace(',', '')
+    tweet = templist[1]
+    sent = TextBlob(tweet).sentiment.polarity
+    templist.append(sent)
 
-    diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'], templist))
-    #f = json.dumps(diction)
+    diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
+
     return diction
-#    | beam.Map(lambda Name_bq, Tweet_bq, Time_bq, Followers_bq, Location_bq, Device_bq: {'Name':Name_bq , 'Tweet':Tweet_bq, 'Time': Time_bq, 'Followers':Followers_bq, 'Location':Location_bq, 'Source':Device_bq})
 
 def run(argv=None):
 
@@ -43,9 +42,9 @@ def run(argv=None):
     with beam.Pipeline(options=options) as p:
         # Read the pubsub topic into a PCollection.
         lines = (p | beam.io.ReadStringsFromPubSub(topic='projects/warm-airline-207713/topics/twitter-stream')
-                   | beam.Map(handle_pubsub)
-                   | beam.io.WriteToBigQuery('warm-airline-207713:Tweets_raw.Donald_Trump_Tweets',
-                    schema='Username:STRING, Tweet:STRING, Time:TIMESTAMP, Followers:INTEGER, Location:STRING, Source:STRING',
+                   | beam.Map(compute_sentiment)
+                   | beam.io.WriteToBigQuery('warm-airline-207713:Tweets_raw.Donald_Trump_Tweets_DS',
+                    schema='Username:STRING, Tweet:STRING, Time:TIMESTAMP, Followers:INTEGER, Location:STRING, Source:STRING, Sentiment:FLOAT',
                     create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                     write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND))
 
