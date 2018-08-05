@@ -21,7 +21,7 @@ options.view_as(StandardOptions).streaming = True
 
 
 
-
+'''
 def compute_sentiment(line):
     import os
     os.system('sudo pip install textblob')
@@ -35,7 +35,7 @@ def compute_sentiment(line):
 
     diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
 
-    return diction
+    return diction'''
 
 class sentimentDoFn(beam.DoFn):
     def process(self, element):
@@ -50,7 +50,7 @@ class sentimentDoFn(beam.DoFn):
         #templist.append(str(sent))
 
         diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'], templist))
-        return diction
+        yield diction
 def run(argv=None):
 
 
