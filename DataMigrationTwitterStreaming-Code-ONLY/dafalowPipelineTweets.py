@@ -59,8 +59,8 @@ def run(argv=None):
         # Read the pubsub topic into a PCollection.
         lines = (p | beam.io.ReadStringsFromPubSub(topic='projects/warm-airline-207713/topics/twitter-stream')
                    | beam.Map(compute_sentiment)
-                   | beam.io.WriteToBigQuery('warm-airline-207713:Tweets_raw.Donald_Trump_Tweets_DS',
-                    schema='Username:STRING, Tweet:STRING, Time:TIMESTAMP, Followers:INTEGER, Location:STRING, Source:STRING, Sentiment:STRING',
+                   | beam.io.WriteToBigQuery('warm-airline-207713:Tweets_raw.Donald_Trump_Tweets_D',
+                    schema='Username:STRING, Tweet:STRING, Time:TIMESTAMP, Followers:INTEGER, Location:STRING, Source:STRING, Sentiment:FLOAT',
                     create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                     write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND))
 
