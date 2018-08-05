@@ -31,8 +31,8 @@ def handle_pubsub(line):
         templist[j] = item.replace(',', '')
 
     diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'], templist))
-    f = json.dumps(diction)
-    return f
+    #f = json.dumps(diction)
+    return diction
 #    | beam.Map(lambda Name_bq, Tweet_bq, Time_bq, Followers_bq, Location_bq, Device_bq: {'Name':Name_bq , 'Tweet':Tweet_bq, 'Time': Time_bq, 'Followers':Followers_bq, 'Location':Location_bq, 'Source':Device_bq})
 
 def run(argv=None):
