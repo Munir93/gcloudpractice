@@ -1,9 +1,7 @@
 import apache_beam as beam
-import apache_beam.transforms.window as window
+
 import config
-from google.cloud import pubsub
-import os
-import argparse
+
 import json
 from apache_beam.options.pipeline_options import PipelineOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
@@ -15,8 +13,11 @@ options = PipelineOptions()
 
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = config.PROJECT_ID
+google_cloud_options.staging_location = 'gs://dod-mwja-project1/staging'
+google_cloud_options.temp_location = 'gs://dod-mwja-project1/temp'
 options.view_as(StandardOptions).runner = 'DataflowRunner'
 options.view_as(StandardOptions).streaming = True
+
 
 
 def parse_pubsub(line):
