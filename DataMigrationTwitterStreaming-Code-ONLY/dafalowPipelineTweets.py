@@ -21,10 +21,9 @@ options.view_as(StandardOptions).streaming = True
 
 
 
-'''
 def compute_sentiment(line):
-    import os
-    os.system('sudo pip install textblob')
+    #import os
+    #os.system('sudo pip install textblob')
     from textblob import TextBlob
     templist = line.split('-=-')
     for j, item in enumerate(templist):
@@ -35,9 +34,9 @@ def compute_sentiment(line):
 
     diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
 
-    return diction'''
+    return diction
 
-class sentimentDoFn(beam.DoFn):
+'''class sentimentDoFn(beam.DoFn):
     def process(self, element):
         #import os
         #os.system('sudo pip install textblob')
@@ -50,7 +49,7 @@ class sentimentDoFn(beam.DoFn):
         #templist.append(str(sent))
 
         diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source'], templist))
-        yield diction
+        yield diction'''
 def run(argv=None):
 
 
@@ -59,13 +58,15 @@ def run(argv=None):
     with beam.Pipeline(options=options) as p:
         # Read the pubsub topic into a PCollection.
         lines = (p | beam.io.ReadStringsFromPubSub(topic='projects/warm-airline-207713/topics/twitter-stream')
-                   | beam.ParDo(sentimentDoFn())
+                   | beam.Map(compute_sentiment)
                    | beam.io.WriteToBigQuery('warm-airline-207713:Tweets_raw.Donald_Trump_Tweets',
                     schema='Username:STRING, Tweet:STRING, Time:TIMESTAMP, Followers:INTEGER, Location:STRING, Source:STRING',
                     create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                     write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND))
 
 if __name__ == '__main__':
+    import os
+    os.system('sudo pip install textblob')
     run()
 
 
