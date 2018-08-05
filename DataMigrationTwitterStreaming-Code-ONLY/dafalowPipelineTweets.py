@@ -22,8 +22,8 @@ options.view_as(StandardOptions).streaming = True
 
 
 def compute_sentiment(line):
-    #import os
-    #os.system('sudo pip install textblob')
+    import os
+    os.system('sudo pip install textblob')
     from textblob import TextBlob
     templist = line.split('-=-')
     for j, item in enumerate(templist):
@@ -65,8 +65,6 @@ def run(argv=None):
                     write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND))
 
 if __name__ == '__main__':
-    import os
-    os.system('sudo pip install textblob')
     run()
 
 
