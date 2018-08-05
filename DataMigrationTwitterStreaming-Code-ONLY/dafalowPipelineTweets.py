@@ -23,6 +23,9 @@ options.view_as(StandardOptions).streaming = True
 
 
 def compute_sentiment(line):
+    import os 
+    os.system('sudo pip install textblob')
+    
     import textblob
     from textblob import TextBlob
     templist = line.split('-=-')
