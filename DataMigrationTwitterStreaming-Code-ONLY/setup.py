@@ -27,7 +27,7 @@ class install(_install):  # pylint: disable=invalid-name
         _install.run(self)
 
 CUSTOM_COMMANDS = [
-    ['pip', 'install', 'textblob'],
+    ['pip install textblob'],
 ]
 
 
