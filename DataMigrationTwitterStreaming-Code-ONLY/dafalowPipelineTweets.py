@@ -23,6 +23,7 @@ options.view_as(StandardOptions).streaming = True
 
 
 def compute_sentiment(line):
+    from textblob import TextBlob
     templist = line.split('-=-')
     for j, item in enumerate(templist):
         templist[j] = item.replace(',', '')
