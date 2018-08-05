@@ -33,7 +33,7 @@ def compute_sentiment(line):
         templist[j] = item.replace(',', '')
     tweet = templist[1]
     sent = TextBlob(tweet).sentiment.polarity
-    templist.append(sent)
+    templist.append(str(sent))
 
     diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
 
