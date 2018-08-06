@@ -56,7 +56,7 @@ def run(argv=None):
 
 
 
-    with beam.Pipeline(options=options, argv=['--setup_file','./setup.py']) as p:
+    with beam.Pipeline(options=options, argv=['--requirements','requirements.txt']) as p:
         # Read the pubsub topic into a PCollection.
         lines = (p | beam.io.ReadStringsFromPubSub(topic='projects/warm-airline-207713/topics/twitter-stream')
                    | beam.Map(compute_sentiment)
