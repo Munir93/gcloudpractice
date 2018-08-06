@@ -39,7 +39,7 @@ def callback(message):
     #print(tuple(templist))
     row = [tuple(map(str,templist))]
     print(row)
-    client.insert_rows(table, rows=row)
+    #client.insert_rows(table, rows=row)
     #assert errors == []
     #print(message.data)
    # client.insert_rows(table,tuple(templist))
