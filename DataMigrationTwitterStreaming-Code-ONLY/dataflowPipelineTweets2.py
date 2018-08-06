@@ -38,7 +38,7 @@ def compute_sentiment(line):
 
     return diction
 
-class sentimentDoFn(beam.DoFn):
+'''class sentimentDoFn(beam.DoFn):
     def process(self, element):
         #import os
         #os.system('sudo pip install textblob')
@@ -48,16 +48,16 @@ class sentimentDoFn(beam.DoFn):
             templist[j] = item.replace(',', '')
         tweet = templist[1]
         sent = TextBlob(tweet).sentiment.polarity
-        templist.append(sent)
+        templist.append(sent) '''
 
         diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
         return diction
 def run(argv=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--requirements_file', required=True)
+    pipeline_args = parser.parse_known_args(argv)
 
-
-
-
-    with beam.Pipeline(options=options, argv=['--requirements_file','requirements.txt']) as p:
+    with beam.Pipeline(options=options, argv=pipeline_args) as p:
         # Read the pubsub topic into a PCollection.
         lines = (p | beam.io.ReadStringsFromPubSub(topic='projects/warm-airline-207713/topics/twitter-stream')
                    | beam.Map(compute_sentiment)
