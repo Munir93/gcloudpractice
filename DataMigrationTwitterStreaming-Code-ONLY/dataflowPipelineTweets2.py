@@ -25,6 +25,7 @@ options.view_as(SetupOptions)
 def compute_sentiment(line):
     #import os
     #os.system('sudo pip install textblob')
+    import textblob
     from textblob import TextBlob
     templist = line.split('-=-')
     for j, item in enumerate(templist):
