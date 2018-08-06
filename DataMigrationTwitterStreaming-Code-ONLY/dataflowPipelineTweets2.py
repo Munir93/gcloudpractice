@@ -48,10 +48,11 @@ def compute_sentiment(line):
             templist[j] = item.replace(',', '')
         tweet = templist[1]
         sent = TextBlob(tweet).sentiment.polarity
-        templist.append(sent) '''
-
+        templist.append(sent) 
         diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
-        return diction
+        return diction'''
+        
+        
 def run(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--requirements_file', required=True)
