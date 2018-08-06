@@ -1,7 +1,7 @@
 import apache_beam as beam
 
 import config
-
+import argparse
 import json
 from apache_beam.options.pipeline_options import PipelineOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
