@@ -37,21 +37,6 @@ def compute_sentiment(line):
     diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
 
     return diction
-
-'''class sentimentDoFn(beam.DoFn):
-    def process(self, element):
-        #import os
-        #os.system('sudo pip install textblob')
-        from textblob import TextBlob
-        templist = element.split('-=-')
-        for j, item in enumerate(templist):
-            templist[j] = item.replace(',', '')
-        tweet = templist[1]
-        sent = TextBlob(tweet).sentiment.polarity
-        templist.append(sent) 
-        diction = dict(zip(['Username', 'Tweet', 'Time', 'Followers', 'Location', 'Source', 'Sentiment'], templist))
-        return diction'''
-        
         
 def run(argv=None):
     parser = argparse.ArgumentParser()
